@@ -1,5 +1,4 @@
 use petgraph::{
-    algo,
     graph::{Graph, NodeIndex},
     visit::EdgeRef,
 };
@@ -57,7 +56,6 @@ fn main() {
     }
     let mut sum = 0;
     for edge in graph.edge_references() {
-        let source = edge.source();
         let target = edge.target();
         let weight = edge.weight();
         if *weight == 0 {
@@ -72,16 +70,13 @@ fn main() {
     // Part 2
     let required_space = 30000000 - (70000000 - dir_sum(&graph, root));
     let mut min_val: u64 = 70000000;
-    let mut min_node = root;
     for edge in graph.edge_references() {
-        let source = edge.source();
         let target = edge.target();
         let weight = edge.weight();
         if *weight == 0 {
             let d_sum = dir_sum(&graph, target);
             if d_sum >= required_space && d_sum < min_val {
                 min_val = d_sum;
-                min_node = target;
             }
         }
     }
